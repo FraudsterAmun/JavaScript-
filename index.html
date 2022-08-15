@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #2c9afc;
+        }
+
+        .box {
+            width: 550px;
+            height: 550px;
+            border: 10px solid white;
+            overflow: hidden;
+            margin: auto;
+            margin-top: 30px;
+            box-shadow: 1px 0px 10px 3px;
+        }
+
+        .bodydom {
+            width: 500px;
+            height: 500px;
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #2c9afc;
+            border-radius: 10px;
+            margin: auto;
+            margin-top: 25px;
+        }
+
+        .block {
+            width: 24%;
+            height: 24%;
+            border: 1px solid black;
+            text-align: center;
+            font-size: 20px;
+            margin: 4%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        .block img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .block5 {
+            background-color: #409EFF;
+            cursor: pointer;
+        }
+
+        .frequency {
+            font-size: 15px
+        }
+
+        #prize {
+            width: 200px;
+            height: 30px;
+            margin: auto;
+            font-size: 25px;
+            margin-top: 10px;
+            text-align: center;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="box">
+        <div class="bodydom">
+            <div class="block">
+                <img src="images/一点点.jpg" alt="">
+            </div>
+            <div class="block">
+                <img src="images/CoCo.jpg" alt="">
+            </div>
+            <div class="block">
+                <img src="images/茶百道.jpg" alt="">
+            </div>
+            <div class="block">
+                <img src="images/沪上阿姨.jpg" alt="">
+            </div>
+            <div class="block5 block">
+                <div>
+                    <div>
+                        <img src="images/按钮.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="block">下次一定</div>
+            <div class="block">
+                <img src="images/蜜雪冰城.jpg" alt="">
+            </div>
+            <div class="block">
+                <img src="images/喜茶.jpg" alt="">
+            </div>
+            <div class="block">神秘大奖</div>
+        </div>
+    </div>
+
+    <div id="prize"></div>
+
+</body>
+
+<script>
+    let blocks = document.getElementsByClassName("block");
+    let list = [0, 1, 2, 5, 8, 7, 6, 3], i = 0, count = 0, stopTimer;
+    console.log(list.length);
+    let randomn = Math.floor(Math.random() * 8 + 51);
+    let prize = document.querySelector('#prize');
+
+    let timer = function () {
+        for (let j = 0; j < list.length; j++) {
+            blocks[list[j]].style.opacity = "1";
+        }
+        blocks[list[i]].style.opacity = "0.6";
+        i++;
+        if (i === list.length) {
+            i = 0;
+        }
+
+        count++;
+        if (count === 5 || count === 45) {
+            clearInterval(stopTimer);
+            stopTimer = setInterval(timer, 200);
+        }
+        if (count === 10 || count === 35) {
+            clearInterval(stopTimer);
+            stopTimer = setInterval(timer, 100);
+        }
+        if (count === 15) {
+            clearInterval(stopTimer);
+            stopTimer = setInterval(timer, 50);
+        }
+
+        if (count === randomn) {
+            clearInterval(stopTimer);
+            console.log(count);
+            // var index = blocks[list[i - 1]].innerText;
+            em(i - 1);
+
+            count = 0;
+            let randomn = Math.floor(Math.random() + 8 + 50);
+            blocks[4].addEventListener("click", start);  //下标为4的绑定点击事件，也就是开始抽奖
+
+        }
+        function em(i) {
+            switch (i) {
+                case 0:
+                    prize.innerHTML = '喜提一点点一杯';
+                    break;
+                case 1:
+                    prize.innerHTML = '喜提CoCo一杯';
+                    break;
+                case 2:
+                    prize.innerHTML = '喜提茶百道一杯';
+                    break;
+                case 3:
+                    prize.innerHTML = '下次一定';
+                    break;
+                case 4:
+                    prize.innerHTML = '神秘大奖';
+                    break;
+                case 5:
+                    prize.innerHTML = '喜提喜茶一杯';
+                    break;
+                case 6:
+                    prize.innerHTML = '喜提蜜雪冰城一杯';
+                    break;
+                default:
+                    prize.innerHTML = '喜提沪上一杯';
+                    break;
+
+            }
+        }
+
+    }
+    let start = function () {
+        blocks[4].removeEventListener('click', start);
+        stopTimer = setInterval(timer, 300);
+
+    }
+    blocks[4].addEventListener("click", start);  //下标为4的绑定点击事件，也就是开始抽奖
+
+</script>
+
+</html>
